@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:shuqi/app/sq_color.dart';
+import 'package:flutter_project/model/novel/chapternew_entity.dart';
 
-import 'chapter.dart';
+import '../../app/sq_color.dart';
 
 class Novel {
   late String id;
   late String name;
   late String imgUrl;
   late String firstChapter;
-  late Chapter lastChapter;
+  late ChapternewListBookChapters lastChapter;
   late String author;
   late double price;
   late double score;
@@ -32,7 +32,7 @@ class Novel {
     imgUrl = data['book_cover'];
     firstChapter = data['topic_first'] ?? '';
     if (data['lastChapter'] != null) {
-      lastChapter = Chapter.fromJson(data['lastChapter']);
+      lastChapter = ChapternewListBookChapters.fromJson(data['lastChapter']);
     }
     score = data['score'] ?? 0;
     author = data['author_name'];

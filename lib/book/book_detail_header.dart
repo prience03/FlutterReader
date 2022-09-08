@@ -1,15 +1,14 @@
-import 'package:novel_flutter/app/routes.dart';
-import 'package:novel_flutter/model/book.dart';
-import 'package:novel_flutter/utils/util.dart';
-import 'package:novel_flutter/widgets/space_divider.dart';
-import 'package:novel_flutter/widgets/item_container.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/model/competive/board_info_entity.dart';
+import 'package:flutter_project/utils/util.dart';
+import 'package:flutter_project/widget/item_container.dart';
+import 'package:flutter_project/widget/space_divider.dart';
 
 /// 书籍信息+书籍标签视图
 /// 页面：书籍详情页的头部
 class BookDetailHeaderView extends StatelessWidget {
-  final Book book;
+  final BoardInfoDataBangdanList book;
 
   const BookDetailHeaderView({
     Key? key,
@@ -35,11 +34,11 @@ class BookDetailHeaderView extends StatelessWidget {
       children: <Widget>[
         InkWell(
           onTap: () {
-            Navigator.pushNamed(context, RouteName.image,
-                arguments: book.getCover());
+            // Navigator.pushNamed(context, RouteName.image,
+            //     arguments: book.getCover());
           },
           child: Image(
-            image: ExtendedNetworkImageProvider(book.getCover(),
+            image: ExtendedNetworkImageProvider(book.cover!,
                 cache: true,
                 retries: 3,
                 timeLimit: const Duration(milliseconds: 100),
@@ -65,29 +64,29 @@ class BookDetailHeaderView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                '${book.title}',
+                '${book.newBookName}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.subtitle2,
               ),
               const SpaceDivider.tiny(),
               Text(
                 '${book.intro}',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
               const SpaceDivider.tiny(),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Text(
-                    '${book.author}',
+                    '${book.authorName}',
                     style: Theme.of(context).textTheme.caption,
                   ),
                   const SpaceDivider.small(),
                   Visibility(
-                    visible: book.category!.isNotEmpty,
+                    visible: book.categoryName!.isNotEmpty,
                     child: Container(
                       padding: const EdgeInsets.only(left: 2, right: 2),
                       alignment: Alignment.center,
@@ -98,7 +97,7 @@ class BookDetailHeaderView extends StatelessWidget {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(2.0))),
                       child: Text(
-                        '${book.category}',
+                        '${book.categoryName}',
                         style: Theme.of(context).textTheme.caption,
                       ),
                     ),
@@ -109,12 +108,12 @@ class BookDetailHeaderView extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Text(
-                    book.finished ? '已完结' : '连载中',
+                    book.bookStatue == '03' ? '已完结' : '连载中',
                     style: Theme.of(context).textTheme.caption,
                   ),
                   const SpaceDivider.small(),
                   Text(
-                    book.getWordCountText(context),
+                    book.online!,
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ],
@@ -140,7 +139,11 @@ class BookDetailHeaderView extends StatelessWidget {
       Color(0xFFff7373)
     ];
     var i = 0;
-    List<String> _tags = book.tags!.split(',');
+    // book.tags!
+    List<String> _tags = [];
+    for(int i = 0 ; i < book.tags!.length;i++){
+      _tags.add(book.tags![i].name!);
+    }
     var tagWidgets = _tags.map((tag) {
       var color = colors[i % colors.length];
       var tagWidget = Container(

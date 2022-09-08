@@ -6,7 +6,7 @@ import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
-import 'package:novel_flutter/app/config.dart';
+import 'package:flutter_project/app/config.dart';
 
 /// 本应用的工具
 class Util {

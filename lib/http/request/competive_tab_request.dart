@@ -1,10 +1,19 @@
 import 'base_request.dart';
 
-class ProjectTabRequest extends BaseRequest {
+class CompetiveTabRequest extends BaseRequest {
+
+  String paths = "";
+
+  CompetiveTabRequest({required this.paths}){
+  }
+
   @override
   HttpMethod httpMethod() {
-    return HttpMethod.GET;
+    return HttpMethod.POST;
   }
+
+  @override
+  String authority() => "service-boutique-freebook.cread.com";
 
   @override
   bool needLogin() {
@@ -12,7 +21,10 @@ class ProjectTabRequest extends BaseRequest {
   }
 
   @override
+  bool get useHttps => false;
+
+  @override
   String path() {
-    return "project/tree/json";
+    return paths;
   }
 }

@@ -2,22 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/http/core/f_error.dart';
 import 'package:flutter_project/http/core/f_net_state.dart';
 import 'package:flutter_project/http/dao/project_dao.dart';
+import 'package:flutter_project/model/competive/competive_tab_entity.dart';
 import 'package:flutter_project/model/project/project_tab_model.dart';
+import 'package:flutter_project/page/competivt_child_page.dart';
 import 'package:flutter_project/utils/color.dart';
 
 import 'project_top_tab_page.dart';
 
 ///项目模块
-class ProjectPage extends StatefulWidget {
-  const ProjectPage({Key? key}) : super(key: key);
+class CompetivePage extends StatefulWidget {
+  const CompetivePage({Key? key}) : super(key: key);
 
   @override
-  _ProjectPageState createState() => _ProjectPageState();
+  _CompetivePageState createState() => _CompetivePageState();
 }
 
-class _ProjectPageState extends FNetState<ProjectPage>
+class _CompetivePageState extends FNetState<CompetivePage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  List<ProjectTabModel> projectTabList = [];
+
+  List<CompetiveTabData> projectTabList = [];
 
   TabController? _tabController;
 
@@ -37,7 +40,10 @@ class _ProjectPageState extends FNetState<ProjectPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    var top = MediaQuery.of(context).padding.top; //刘海屏 刘海的高度
+    var top = MediaQuery
+        .of(context)
+        .padding
+        .top; //刘海屏 刘海的高度
     return Scaffold(
       body: Column(
         children: [
@@ -48,11 +54,11 @@ class _ProjectPageState extends FNetState<ProjectPage>
           ),
           Flexible(
               child: TabBarView(
-            children: projectTabList.map((tab) {
-              return ProjectTabPage(cid: tab.id);
-            }).toList(),
-            controller: _tabController,
-          ))
+                children: projectTabList.map((tab) {
+                  return CompetiveChildTabPage(cid: tab.id, tagName: tab.tagName,tagPlace: tab.tagPlace,tagType: tab.tagType);
+                }).toList(),
+                controller: _tabController,
+              ))
         ],
       ),
     );
@@ -73,7 +79,7 @@ class _ProjectPageState extends FNetState<ProjectPage>
           child: Padding(
             padding: EdgeInsets.only(left: 5, right: 5),
             child: Text(
-              tab.name!,
+              tab.tagName!,
               style: TextStyle(fontSize: 16),
             ),
           ),
@@ -88,7 +94,7 @@ class _ProjectPageState extends FNetState<ProjectPage>
   ///请求
   void loadData() async {
     try {
-      List<ProjectTabModel>? tabModel = await ProjectDao.getTab();
+      List<CompetiveTabData>? tabModel = await ProjectDao.getCreadTab();
       print('loadData $tabModel');
       if (tabModel != null) {
         _tabController = TabController(length: tabModel.length, vsync: this);

@@ -1,12 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter_project/model/mine/user.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// 缓存基类
 class SpCache {
   static User user = User();
   SharedPreferences? sp;
+
+  static String KEY_SERIALID = "KEY_SERIALID";
 
   SpCache._() {
     init();
@@ -85,4 +88,17 @@ class SpCache {
     String? _data = sp?.getString(key);
     return (_data == null || _data.isEmpty) ? null : json.decode(_data);
   }
+
+
+  String? getString (String key) {
+    String? _data = sp?.getString(key);
+    return (_data == null || _data.isEmpty) ? null : _data;
+  }
+
+
+  Future<String> get getChapterPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path!!;
+  }
+
 }

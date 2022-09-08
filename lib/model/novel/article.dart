@@ -5,8 +5,8 @@ class Article {
   late String content;
   late int price;
   late int index;
-  late int nextArticleId;
-  late int preArticleId;
+  late String nextArticleId;
+  late String preArticleId;
 
   late List<Map<String, int>> pageOffsets;
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:novel_flutter/app/dimens.dart';
+
+import 'dimens.dart';
 
 /// 强调色装饰器
 /// 圆角，渐变
@@ -81,3 +82,6 @@ const itemEdgeInsets = EdgeInsets.symmetric(
   vertical: itemPadding,
   horizontal: itemPadding,
 );
+
+
+const borderShadow = [BoxShadow(color: Color(0x22000000), blurRadius: 8)];

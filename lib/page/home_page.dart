@@ -2,15 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/base/base_refresh_load_state.dart';
 import 'package:flutter_project/db/sp_cache.dart';
-import 'package:flutter_project/http/core/dio_adapter.dart';
 import 'package:flutter_project/http/core/f_error.dart';
-import 'package:flutter_project/http/core/f_net_state.dart';
 import 'package:flutter_project/http/dao/home_dao.dart';
 import 'package:flutter_project/model/home/banner_model.dart';
 import 'package:flutter_project/model/home/home_article_model.dart';
 import 'package:flutter_project/navigator/f_navigatior.dart';
 import 'package:flutter_project/page/search_delegate.dart';
-import 'package:flutter_project/utils/color.dart';
 import 'package:flutter_project/widget/article_item.dart';
 import 'package:flutter_project/widget/f_banner.dart';
 import 'package:flutter_project/widget/navigation_bar.dart';
@@ -277,7 +274,7 @@ class _HomePageState
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            NavigationBar(
+            NavigationBar1(
               childWidget: _appBar(),
               statusStyle: StatusStyle.DARK_STYLE,
             ),

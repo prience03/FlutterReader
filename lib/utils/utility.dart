@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:shuqi/utility/screen.dart';
+import '../utils/screen.dart';
 
 afterLayout(VoidCallback callback) {
   WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {

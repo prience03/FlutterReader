@@ -1,37 +1,57 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/model/project/project_model.dart';
+import 'package:flutter_project/model/competive/board_info_entity.dart';
 import 'package:flutter_project/navigator/f_navigatior.dart';
 import 'package:flutter_project/utils/cache_util.dart';
 import 'package:flutter_project/utils/color.dart';
+import 'package:flutter_project/utils/util.dart';
 
-class CardView extends StatelessWidget {
-  final ProjectInfo? projectInfo;
+class BoardCardView extends StatelessWidget {
+  final BoardInfoDataBangdanList? projectInfo;
 
-  const CardView({Key? key, this.projectInfo}) : super(key: key);
+  const BoardCardView({Key? key, this.projectInfo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        FRouter.getInstance()?.onIntentTo(RouteStatus.webview, args: {
-          "article_path": projectInfo!.link!,
-          "article_title": projectInfo!.title
+        FRouter.getInstance()?.onIntentTo(RouteStatus.bookDetail, args: {
+          "boardInfo": projectInfo!,
+          "bookId": projectInfo!.bookid,
         });
+        // Navigator.of(context).pushNamed(RouteName.bookDetail,arguments:projectInfo!.list![0]);
       },
       child: SizedBox(
-        height: 280,
-        child: Card(
-          margin: EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 10),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [_image(context), _itemTitle()],
+        child:Column(
+          children: [
+            Card(
+              margin: EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 10),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [_image2(context),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(projectInfo!.newBookName!, style: TextStyle(color: Colors.black, fontSize: 16),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Icon(
+                            Icons.person,
+                            color: primary,
+                          ),
+                        )
+                      ],
+                    )],
+                ),
+              ),
             ),
-          ),
-        ),
+
+          ],
+        )
       ),
     );
   }
@@ -40,7 +60,7 @@ class CardView extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        cachedImage(projectInfo!.envelopePic!,
+        cachedImage(projectInfo!.cover!,
             width: size.width / 2 - 10, height: 180),
         Positioned(
             left: 0,
@@ -63,9 +83,30 @@ class CardView extends StatelessWidget {
     );
   }
 
+  _image2(BuildContext context) {
+    return Image(
+      image: ExtendedNetworkImageProvider(projectInfo!.cover!,
+          cache: true,
+          retries: 3,
+          timeLimit: const Duration(milliseconds: 100),
+          timeRetry: const Duration(milliseconds: 100)),
+      width: 94,
+      height: 132,
+      fit: BoxFit.cover,
+      loadingBuilder: (BuildContext context, Widget child,
+          ImageChunkEvent? loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Image.asset(Util.assetImage('image_placeholder.png'));
+      },
+      errorBuilder:
+          (BuildContext context, Object exception, StackTrace? stackTrace) {
+        return Image.asset(Util.assetImage('image_error.png'));
+      },
+    );
+  }
+
   _itemTitle() {
-    return Expanded(
-        child: Container(
+    return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,7 +114,7 @@ class CardView extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 6, right: 6),
             child: Text(
-              projectInfo!.title!,
+              projectInfo!.newBookName!,
               style: TextStyle(color: Colors.black, fontSize: 16),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -92,7 +133,7 @@ class CardView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 8),
                 child: Text(
-                  projectInfo!.author!,
+                  projectInfo!.wordCount! + "万字",
                   style: TextStyle(fontSize: 12, color: Colors.black54),
                 ),
               ),
@@ -100,6 +141,6 @@ class CardView extends StatelessWidget {
           ))
         ],
       ),
-    ));
+    );
   }
 }

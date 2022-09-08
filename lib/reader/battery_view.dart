@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:battery/battery.dart';
+import 'package:flutter/material.dart';
 import 'package:device_info/device_info.dart';
 import 'dart:io';
 
-import 'package:shuqi/public.dart';
+import '../app/sq_color.dart';
+
 
 class BatteryView extends StatefulWidget {
   @override

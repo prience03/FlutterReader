@@ -1,6 +1,6 @@
-import 'package:novel_flutter/app/config.dart';
-import 'package:novel_flutter/app/constant.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'package:flutter_project/app/config.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 import 'view_state_model.dart';
 

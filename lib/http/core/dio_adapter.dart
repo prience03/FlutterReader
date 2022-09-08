@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_project/http/request/base_request.dart';
 import 'package:flutter_project/http/core/f_error.dart';
 import 'package:flutter_project/http/core/f_net_adapter.dart';
 import 'package:path_provider/path_provider.dart';
+
 
 ///适配Dio网络请求
 ///如果有其他网络库，则可以继承FNetAdapter重写。
@@ -26,6 +28,15 @@ class DioAdapter extends FNetAdapter {
 
     try {
       var dio = Dio();
+      // (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+      //   // config the http client
+      //   client.findProxy = (uri) {
+      //     //proxy all request to localhost:8888
+      //     return "PROXY 192.168.8.101:8888"; //这里将localhost设置为自己电脑的IP，其他不变，注意上线的时候一定记得把代理去掉
+      //   };
+      //   // you can also create a HttpClient to dio
+      //   // return HttpClient();
+      // };
       if(_cookieJar==null){
         Directory? directory = await getApplicationDocumentsDirectory();
         _cookieJar = new PersistCookieJar(storage: FileStorage(directory.path));

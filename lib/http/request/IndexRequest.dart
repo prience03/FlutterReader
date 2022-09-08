@@ -2,10 +2,14 @@ import 'package:flutter_project/http/request/base_request.dart';
 
 ///首页banner请求
 ///https://www.wanandroid.com/banner/json
-class BannerRequest extends BaseRequest {
+class IndexRequest extends BaseRequest {
+
   @override
-  HttpMethod httpMethod() {
-    return HttpMethod.GET;
+  bool get useHttps => false;
+
+  @override
+  String authority() {
+    return "cxb-pro.cread.com";
   }
 
   @override
@@ -15,6 +19,12 @@ class BannerRequest extends BaseRequest {
 
   @override
   String path() {
-    return "banner/json";
+    return "cx/itf/mySidebar";
   }
+
+  @override
+  HttpMethod httpMethod() {
+    return HttpMethod.POST;
+  }
+
 }

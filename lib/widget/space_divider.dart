@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:novel_flutter/app/dimens.dart';
+import 'package:flutter_project/utils/dimens.dart';
 
 /// 空间分割器，适合有背景色
 class SpaceDivider extends StatelessWidget {

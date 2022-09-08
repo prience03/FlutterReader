@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/navigator/f_navigatior.dart';
 import 'package:flutter_project/page/category_page.dart';
+import 'package:flutter_project/page/competive_page.dart';
 import 'package:flutter_project/page/home_page.dart';
 import 'package:flutter_project/page/mine_page.dart';
 import 'package:flutter_project/page/project_page.dart';
@@ -15,9 +16,9 @@ class BottomNavigator extends StatefulWidget {
 }
 
 class _BottomNavigatorState extends State<BottomNavigator> {
-  int _curIndex = 0;
+  int _curIndex = 1;
 
-  final PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 1);
   List<Widget> _pages = [];
 
   static int initialPage = 0;
@@ -31,7 +32,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           _onJumpTo(index, pageChange: false);
         },
       ),
-      ProjectPage(),
+      CompetivePage(),
       CategoryPage(),
       MinePage(),
     ];

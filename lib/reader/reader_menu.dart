@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:shuqi/public.dart';
+import 'package:flutter_project/model/novel/chapternew_entity.dart';
+import 'package:flutter_project/utils/styles.dart';
+
+import '../app/sq_color.dart';
+import '../utils/screen.dart';
+import '../utils/toast_util.dart';
+import '../utils/utility.dart';
+
 
 class ReaderMenu extends StatefulWidget {
-  final List<Chapter> chapters;
+  final List<ChapternewListBookChapters> chapters;
   final int articleIndex;
 
   final VoidCallback onTap;
   final VoidCallback onPreviousArticle;
   final VoidCallback onNextArticle;
-  final void Function(Chapter chapter) onToggleChapter;
+  final void Function(ChapternewListBookChapters chapter) onToggleChapter;
 
   ReaderMenu({required this.chapters, required this.articleIndex, required this.onTap, required this.onPreviousArticle, required this.onNextArticle, required this.onToggleChapter});
 
@@ -66,7 +73,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
       left: 0,
       right: 0,
       child: Container(
-        decoration: BoxDecoration(color: SQColor.paper, boxShadow: Styles.borderShadow),
+        decoration: BoxDecoration(color: SQColor.paper, boxShadow: borderShadow),
         height: Screen.navigationBarHeight,
         padding: EdgeInsets.fromLTRB(5, Screen.topSafeHeight, 5, 0),
         child: Row(
@@ -103,8 +110,9 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
     if (!isTipVisible) {
       return Container();
     }
-    Chapter chapter = this.widget.chapters[currentArticleIndex()];
-    double percentage = chapter.index / (this.widget.chapters.length - 1) * 100;
+    ChapternewListBookChapters chapter = this.widget.chapters[currentArticleIndex()];
+    // double percentage = chapter.index / (this.widget.chapters.length - 1) * 100;
+    double percentage = 100;
     return Container(
       decoration: BoxDecoration(color: Color(0xff00C88D), borderRadius: BorderRadius.circular(5)),
       margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
@@ -112,7 +120,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(chapter.title, style: TextStyle(color: Colors.white, fontSize: 16)),
+          Text(chapter.name!, style: TextStyle(color: Colors.white, fontSize: 16)),
           Text('${percentage.toStringAsFixed(1)}%', style: TextStyle(color: SQColor.lightGray, fontSize: 12)),
         ],
       ),
@@ -121,7 +129,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
 
   previousArticle() {
     if (this.widget.articleIndex == 0) {
-      Toast.show('已经是第一章了');
+      showToast('已经是第一章了');
       return;
     }
     this.widget.onPreviousArticle();
@@ -132,7 +140,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
 
   nextArticle() {
     if (this.widget.articleIndex == this.widget.chapters.length - 1) {
-      Toast.show('已经是最后一章了');
+      showToast('已经是最后一章了');
       return;
     }
     this.widget.onNextArticle();
@@ -163,7 +171,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
                 });
               },
               onChangeEnd: (double value) {
-                Chapter chapter = this.widget.chapters[currentArticleIndex()];
+                ChapternewListBookChapters chapter = this.widget.chapters[currentArticleIndex()];
                 this.widget.onToggleChapter(chapter);
               },
               activeColor: SQColor.primary,
@@ -191,7 +199,7 @@ class _ReaderMenuState extends State<ReaderMenu> with SingleTickerProviderStateM
         children: <Widget>[
           buildProgressTipView(),
           Container(
-            decoration: BoxDecoration(color: SQColor.paper, boxShadow: Styles.borderShadow),
+            decoration: BoxDecoration(color: SQColor.paper, boxShadow: borderShadow),
             padding: EdgeInsets.only(bottom: Screen.bottomSafeHeight),
             child: Column(
               children: <Widget>[

@@ -9,7 +9,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 ///项目模块下，每个tab下的公用页面
 class ProjectTabPage extends StatefulWidget {
   final int? cid;
-
   const ProjectTabPage({Key? key, this.cid}) : super(key: key);
 
   @override
@@ -25,7 +24,7 @@ class _ProjectTabPageState extends BaseRefreshLoadStateState<ProjectModel,
   get child => MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: StaggeredGridView.countBuilder(
+      child: AlignedGridView.count(
           controller: scrollController,
           padding: EdgeInsets.only(top: 10, left: 10, right: 10),
           crossAxisCount: 2,
@@ -35,9 +34,8 @@ class _ProjectTabPageState extends BaseRefreshLoadStateState<ProjectModel,
               projectInfo: dataList[index],
             );
           },
-          staggeredTileBuilder: (int index) {
-            return StaggeredTile.fit(1);
-          }));
+          )
+  );
 
   @override
   Future<ProjectModel> getData(int curPage) async {

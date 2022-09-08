@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:novel_flutter/app/dimens.dart';
-import 'package:novel_flutter/app/styles.dart';
+import 'package:flutter_project/utils/dimens.dart';
+import 'package:flutter_project/utils/styles.dart';
 
 /// 项容器
 class ItemContainer extends StatelessWidget {

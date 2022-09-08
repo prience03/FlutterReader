@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/model/novel/chapter_content_entity.dart';
+import 'package:flutter_project/utils/utility.dart';
 import 'package:intl/intl.dart';
 
-import 'package:shuqi/public.dart';
+import '../app/sq_color.dart';
+// import '../model/novel/article.dart';
 import 'battery_view.dart';
+import '../utils/screen.dart';
 
 class ReaderOverlayer extends StatelessWidget {
-  final Article article;
+  final ChapterContentChapterList article;
   final int page;
   final double topSafeHeight;
 
@@ -17,11 +21,11 @@ class ReaderOverlayer extends StatelessWidget {
     var time = format.format(DateTime.now());
 
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 10 + topSafeHeight, 15, 10 + Screen.bottomSafeHeight),
+      padding: EdgeInsets.fromLTRB(15, 10 + topSafeHeight, 15, 10+Screen.bottomSafeHeight),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(article.title, style: TextStyle(fontSize: fixedFontSize(14), color: SQColor.golden)),
+          Text(article.name!, style: TextStyle(fontSize: fixedFontSize(14), color: SQColor.golden)),
           Expanded(child: Container()),
           Row(
             children: <Widget>[

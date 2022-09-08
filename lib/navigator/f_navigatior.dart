@@ -45,6 +45,8 @@ enum RouteStatus {
   about,
   setting,
   coinRank,
+  bookDetail,
+  bookReader,
   unknown
 }
 
@@ -59,7 +61,9 @@ RouteStatus getStatus(MaterialPage page) {
     return RouteStatus.detail;
   } else if (page.child is WebViewPage) {
     return RouteStatus.webview;
-  } else if (page.child is ArticlePage) {
+  } else if (page.child is WebViewPage) {
+    return RouteStatus.bookDetail;
+  }else if (page.child is ArticlePage) {
     return RouteStatus.article;
   } else if (page.child is MyCollectPage) {
     return RouteStatus.collect;

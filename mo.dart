@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart' as path;
 
 const TAG = "\$";
-const SRC = "./json"; //JSON 目录
+const SRC = "./jsons"; //JSON 目录
 const DIST = "lib/models/"; //输出model目录
 
 void walk() {

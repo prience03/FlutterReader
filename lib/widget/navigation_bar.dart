@@ -6,13 +6,13 @@ import 'package:flutter_project/provider/theme_provider.dart';
 import 'package:flutter_project/utils/color.dart';
 import 'package:provider/provider.dart';
 
-class NavigationBar extends StatefulWidget {
+class NavigationBar1 extends StatefulWidget {
   final StatusStyle statusStyle;
   final Color color;
   final double height;
   final Widget? childWidget;
 
-  const NavigationBar(
+  const NavigationBar1(
       {Key? key,
       this.statusStyle = StatusStyle.DARK_STYLE,
       this.color = Colors.white,
@@ -24,7 +24,7 @@ class NavigationBar extends StatefulWidget {
   _NavigationBarState createState() => _NavigationBarState();
 }
 
-class _NavigationBarState extends State<NavigationBar> {
+class _NavigationBarState extends State<NavigationBar1> {
   var _color;
   var _statusStyle;
 

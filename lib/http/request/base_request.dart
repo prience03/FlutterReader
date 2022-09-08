@@ -1,5 +1,7 @@
-import 'package:flutter_project/http/dao/login_dao.dart';
-import 'package:flutter_project/main.dart';
+
+import 'package:flutter_project/db/sp_cache.dart';
+
+import '../../global.dart';
 
 enum HttpMethod { GET, POST, DELETE }
 
@@ -35,6 +37,21 @@ abstract class BaseRequest{
       uri = Uri.http(authority(), pathStr, params);
     }
 
+    addHeader("uid", SpCache.getInstance()?.getString("userId") as String);
+    addHeader("uuid", "6e80217069a3b01eb1dddd0f0f4e4bc1");
+    addHeader("cnid", Global.getCnid());
+    addHeader("version", Global.getVersionName());
+    addHeader("vcode", Global.getVersionCode());
+    addHeader("umeng", "default");
+    addHeader("packname", "com.mianfeizs.book");
+    addHeader("oscode", "30");
+    addHeader("other", "a");
+    addHeader("channelId", "2345");
+    addHeader("platform", Global.getPlayform());
+    addHeader("preference", "2");
+    addHeader("appname", "mfzs");
+    addHeader("timestamp", "1647419413493");
+    addHeader("token", "efb110a611d653d9c0f12f76fc22ad93");
     if(needLogin()){
       //需要登录,请求头添加token
       //addHeader(LoginDao.LOGIN_TOKEN, LoginDao.getToken());

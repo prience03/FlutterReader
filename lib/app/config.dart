@@ -45,3 +45,8 @@ const String appIdOfAppStore = '';
 
 /// Google Play App ID
 const String appIdOfGooglePlay = '';
+
+
+
+const exceptionCaughtBySelf = 'EXCEPTION CAUGHT BY SELF';
+const stackTraceTag = 'STACK TRACE';

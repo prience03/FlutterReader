@@ -1,6 +1,6 @@
-import 'package:novel_flutter/app/dimens.dart';
-import 'package:novel_flutter/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/generated/l10n.dart';
+import 'package:flutter_project/utils/dimens.dart';
 
 import 'view_state.dart';
 
@@ -225,16 +225,16 @@ class ViewStateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlineButton(
+    return OutlinedButton(
       child: child ??
           Text(
             textData ?? S.of(context).viewStateButtonRetry,
             style: const TextStyle(wordSpacing: 5),
+            // textColor: Colors.grey,
           ),
-      textColor: Colors.grey,
-      splashColor: Theme.of(context).splashColor,
+      // splashColor: Theme.of(context).splashColor,
       onPressed: onPressed,
-      highlightedBorderColor: Theme.of(context).splashColor,
+      // highlightedBorderColor: Theme.of(context).splashColor,
     );
   }
 }

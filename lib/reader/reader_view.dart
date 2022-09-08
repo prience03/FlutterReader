@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:shuqi/public.dart';
+import '../model/novel/article.dart';
+import '../model/novel/chapter_content_entity.dart';
+import '../utils/utility.dart';
+import '../utils/screen.dart';
 import 'reader_overlayer.dart';
 import 'reader_utils.dart';
 import 'reader_config.dart';
 
 class ReaderView extends StatelessWidget {
-  final Article article;
+  final ChapterContentChapterList article;
   final int page;
   final double topSafeHeight;
 
@@ -23,7 +26,7 @@ class ReaderView extends StatelessWidget {
     );
   }
 
-  buildContent(Article article, int page) {
+  buildContent(ChapterContentChapterList article, int page) {
     var content = article.stringAtPageIndex(page);
 
     if (content.startsWith('\n')) {

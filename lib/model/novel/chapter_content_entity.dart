@@ -29,7 +29,18 @@ class ChapterContentChapterList {
 	String? isVip;
 	String? content;
 	String? flag;
-  
+
+  late List<Map<String, int>> pageOffsets;
+
+  String stringAtPageIndex(int index) {
+    var offset = pageOffsets[index];
+    return this.content!.substring(offset['start']!, offset['end']);
+  }
+
+  int get pageCount {
+    return pageOffsets.length;
+  }
+
   ChapterContentChapterList();
 
   factory ChapterContentChapterList.fromJson(Map<String, dynamic> json) => $ChapterContentChapterListFromJson(json);

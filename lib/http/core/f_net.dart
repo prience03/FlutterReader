@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_project/http/request/base_request.dart';
 import 'package:flutter_project/http/core/dio_adapter.dart';
 import 'package:flutter_project/http/core/f_error.dart';
 import 'package:flutter_project/http/core/f_net_adapter.dart';
+import 'package:flutter_project/http/request/base_request.dart';
 
 class FNet {
   FNet._();
@@ -21,35 +20,33 @@ class FNet {
     var error;
     try {
       response = await send(request);
-    } on FNetError catch(e){
+    } on FNetError catch (e) {
       error = e;
       response = e.data;
       printLog(e.message);
-    }catch(e){
+    } catch (e) {
       //其他异常
       printLog(e);
     }
 
-    if(response==null){
+    if (response == null) {
       printLog(error);
     }
     var result = response?.data;
     print(result);
     var status = response?.errorCode;
     printLog("status = $status");
-    switch(status){
+    switch (status) {
       case 200:
         return result;
       case 401:
         throw NeedLogin();
       case 403:
-        throw NeedAuth(result.toString(),data: result);
+        throw NeedAuth(result.toString(), data: result);
       default:
-        throw FNetError(status ?? -1, result.toString(),data: result);
+        throw FNetError(status ?? -1, result.toString(), data: result);
     }
-
   }
-
 
   Future<BaseNetResponse<T>> send<T>(BaseRequest request) async {
     FNetAdapter adapter = DioAdapter();
